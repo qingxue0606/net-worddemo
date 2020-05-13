@@ -1,11 +1,11 @@
 ﻿
+
 @{
     Layout = null;
 }
 
 
-<!DOCTYPE html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
@@ -14,11 +14,6 @@
     <!--引入PageOffice的js  -->
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
-    <script type="text/javascript">
-        function Lz(id) {
-            location.href = encodeURI("/home/move?id=" + id + "&flg=张三批阅");
-        }
-    </script>
 </head>
 <body>
     <form id="form2">
@@ -34,36 +29,43 @@
         <div id="content">
             <div id="textcontent" style="width: 1000px; height: 800px;">
                 <div class="flow4">
-                    <a href="#" onClick="POBrowser.closeWindow();">
+                    <a href="#" onClick="window.external.close();">
                         <img alt="返回" src="/images/return.gif" border="0" />文件列表
                     </a> <span style="width: 100px;">
                     </span><strong>文档名称：</strong> <span style="color: Red;">
-                        <span><%=fileName %></span>
+                        <span>@Html.Raw(ViewBag.fileName)</span>
                     </span> <span style="width: 100px;">
                     </span><strong>当前流程：</strong>
 
-                    @if (ViewBag.Literal_Lc_Text.Equals("在线编辑"))
+                    @if (ViewBag.Literal_Lc_Text.Equals("正式发文"))
                     {
                         <span style="color: Red;">
                             <span>@Html.Raw(ViewBag.Literal_Lc_Text)</span>
-                        </span> <span style="width: 100px;">
-                        </span>  <strong>流转：</strong>
-                        <img alt="流转" src="/images/arrow2.gif" border="0" /> 
-                        <a href="javascript:Lz(@Html.Raw(ViewBag.DocID))"><span>@Html.Raw(ViewBag.lz)</span></a>
+                        </span> <span style="width: 100px;"></span>
+
                     }
                     else
                     {
-                        <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“修改无痕迹模式”打开文件的效果。</span>
+                        <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“只读模式”打开文件的效果。</span>
                     }
-
-
 
                 </div>
                 <!--**************   卓正 PageOffice组件 ************************-->
-                
-    <div style="width: auto;height: 700px;">
-        @Html.Raw(ViewBag.POCtrl)
-    </div>
+                <script language="javascript">
+                    function ShowDialog(index) {
+                        if (index == 0) document.getElementById("PageOfficeCtrl1").ShowDialog(2);
+                        if (index == 1) document.getElementById("PageOfficeCtrl1").ShowDialog(5);
+                        if (index == 2) document.getElementById("PageOfficeCtrl1").ShowDialog(4);
+                    }
+
+                    //全屏/还原
+                    function IsFullScreen() {
+                        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+                    }
+                </script>
+                <div style="width: auto;height: 700px;">
+                    @Html.Raw(ViewBag.POCtrl)
+                </div>
             </div>
         </div>
         <div id="footer">

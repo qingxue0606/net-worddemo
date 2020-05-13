@@ -1,0 +1,133 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title></title>
+    <link href="/images/csstg.css" rel="stylesheet" type="text/css" />
+    <!--引入PageOffice的js  -->
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
+    <script type="text/javascript">
+        //流程跳转
+        function Lz(id, flag) {
+            if (flag == 0) {
+                location.href = encodeURI("/Edit/move?id=" + id + "&flg=李四批阅");
+            }
+            else
+                location.href = encodeURI("/Edit/move?id=" + id + "&flg=文员清稿");
+        }
+    </script>
+</head>
+<body>
+    <form id="form2">
+        <div id="header">
+            <div style="float: left; margin-left: 20px;">
+                <img src="/images/logo.jpg" height="30" />
+            </div>
+            <ul>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com">卓正网站</a></li>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com/about/about/">联系我们</a></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="textcontent" style="width: 1000px; height: 800px;">
+                <div class="flow4">
+                    <a href="#" onClick="window.external.close();">
+                        <img alt="返回" src="/images/return.gif" border="0" />文件列表
+                    </a> <span style="width: 100px;">
+                    </span><strong>文档名称：</strong> <span style="color: Red;">
+                                                      <span>@Html.Raw(ViewBag.fileName)</span>
+                    </span> <span style="width: 100px;">
+                    </span><strong>当前流程：</strong>
+
+                    @if (ViewBag.Literal_Lc_Text.Equals("张三批阅"))
+                    {
+                        <span style="color: Red;">
+                            <span>@Html.Raw(ViewBag.Literal_Lc_Text)</span>
+                        </span> <span style="width: 100px;">
+                        </span> <strong>流转：</strong>
+                        <img alt="流转" src="/images/arrow2.gif" border="0" />
+                        <a href="javascript:Lz(@Html.Raw(ViewBag.DocID),0)"><span>李四批阅</span></a>
+                    }
+                    else if (ViewBag.Literal_Lc_Text.Equals("李四批阅"))
+                    {
+                        <span style="color: Red;">
+                            <span>@Html.Raw(ViewBag.Literal_Lc_Text)</span>
+                        </span> <span style="width: 100px;">
+                        </span> <strong>流转：</strong>
+                        <img alt="流转" src="/images/arrow2.gif" border="0" />
+                        <a href="javascript:Lz(@Html.Raw(ViewBag.DocID),1)"><span>文员核稿</span></a>
+                    }
+                    else
+                    {
+                        <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“修改无痕迹模式”打开文件的效果。</span>
+                    }
+
+
+
+                </div>
+                <!--**************   卓正 PageOffice组件 ************************-->
+                <script type="text/javascript">
+                    function Save() {
+                        document.getElementById("PageOfficeCtrl1").WebSave();
+                    }
+
+                    //显示痕迹
+                    function ShowRevisions() {
+                        document.getElementById("PageOfficeCtrl1").ShowRevisions = true;
+                    }
+
+                    //隐藏痕迹
+                    function HiddenRevisions() {
+                        document.getElementById("PageOfficeCtrl1").ShowRevisions = false;
+                    }
+
+                    //领导圈阅签字
+                    function StartHandDraw() {
+                        document.getElementById("PageOfficeCtrl1").HandDraw.SetPenWidth(5);
+                        document.getElementById("PageOfficeCtrl1").HandDraw.Start();
+                    }
+                    // 插入键盘批注
+                    function StartRemark() {
+                        var appObj = document.getElementById("PageOfficeCtrl1").WordInsertComment();
+
+                    }
+                    //分层显示手写批注
+                    function ShowHandDrawDispBar() {
+                        document.getElementById("PageOfficeCtrl1").HandDraw.ShowLayerBar();;
+                    }
+
+                    //全屏/还原
+                    function IsFullScreen() {
+                        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+                    }
+
+                    //显示标题
+                    function ShowTitle() {
+                        document.getElementById("PageOfficeCtrl1").Alert("该菜单的标题是：" + document.getElementById("PageOfficeCtrl1").Caption);
+                    }
+
+
+                </script>
+
+                <div style="width: auto;height: 700px;">
+                    @Html.Raw(ViewBag.POCtrl)
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <hr width="1000" />
+            <div>
+                Copyright (c) 2012 北京卓正志远软件有限公司
+            </div>
+        </div>
+    </form>
+</body>
+</html>

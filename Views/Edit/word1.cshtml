@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title></title>
+    <link href="/images/csstg.css" rel="stylesheet" type="text/css" />
+    <!--引入PageOffice的js  -->
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
+    <script type="text/javascript">
+        function Lz(id) {
+            location.href = encodeURI("/Edit/move?id=" + id + "&flg=正式发文");
+        }
+    </script>
+</head>
+<body>
+    <form id="form2">
+        <div id="header">
+            <div style="float: left; margin-left: 20px;">
+                <img src="/images/logo.jpg" height="30" />
+            </div>
+            <ul>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com">卓正网站</a></li>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com/about/about/">联系我们</a></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="textcontent" style="width: 1000px; height: 800px;">
+                <div class="flow4">
+                    <a href="#" onClick="window.external.close();">
+                        <img alt="返回" src="/images/return.gif" border="0" />文件列表
+                    </a> <span style="width: 100px;">
+                    </span><strong>文档名称：</strong> <span style="color: Red;">
+                                                      <span>@Html.Raw(ViewBag.fileName)</span>
+                    </span> <span style="width: 100px;">
+                    </span><strong>当前流程：</strong>
+                    @if (ViewBag.Literal_Lc_Text.Equals("文员清稿"))
+                    {
+                        <span style="color: Red;">
+                            <span>@Html.Raw(ViewBag.Literal_Lc_Text)</span>
+                        </span> <span style="width: 100px;">
+                        </span> <strong>流转：</strong>
+                        <img alt="流转" src="/images/arrow2.gif" border="0" />
+                        <a href="javascript:Lz(@Html.Raw(ViewBag.DocID))"><span>@Html.Raw(ViewBag.lz)</span></a>
+                    }
+                    else
+                    {
+                <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“核稿模式”打开文件的效果。</span>
+                    }
+                </div>
+                <!--**************   卓正 PageOffice组件 ************************-->
+                <script type="text/javascript">
+
+                    // $ = function(id) { return (typeof (id) == 'object') ? id : document.getElementById(id); };
+                    //        function Save() {
+                    //            $("PageOfficeCtrl1").WebSave();
+                    //        }
+
+                    function Save() {
+                        document.getElementById("PageOfficeCtrl1").WebSave();
+                    }
+
+                    function ShowRevisions() {
+                        document.getElementById("PageOfficeCtrl1").ShowRevisions = true;
+                    }
+                    function HiddenRevisions() {
+                        document.getElementById("PageOfficeCtrl1").ShowRevisions = false;
+                    }
+                    function Show_HidRevisions() {
+                        document.getElementById("PageOfficeCtrl1").ShowRevisions = !document.getElementById("PageOfficeCtrl1").ShowRevisions;
+                    }
+
+                    //领导圈阅签字
+                    function StartHandDraw() {
+                        document.getElementById("PageOfficeCtrl1").HandDraw.SetPenWidth(5);
+                        document.getElementById("PageOfficeCtrl1").HandDraw.Start();
+                    }
+
+                    //接受所有修订
+                    function AcceptAllRevisions() {
+                        document.getElementById("PageOfficeCtrl1").AcceptAllRevisions();
+                    }
+
+                    //分层显示手写批注
+                    function ShowHandDrawDispBar() {
+                        document.getElementById("PageOfficeCtrl1").HandDraw.ShowLayerBar();
+                    }
+
+                    //全屏/还原
+                    function IsFullScreen() {
+                        document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+                    }
+
+                    //显示菜单
+                    function ShowTitle() {
+                        document.getElementById("PageOfficeCtrl1").Alert("该菜单的标题是：" + document.getElementById("PageOfficeCtrl1").Caption);
+                    }
+
+                    //插入电子印章
+                    function InsertSeal() {
+                        //alert("请使用此用户的印章测试\r\n用户名：李志 \r\n初始密码：111111");
+
+                        var zoomseal = document.getElementById("PageOfficeCtrl1").ZoomSeal;
+                        if (zoomseal != null)
+                            zoomseal.AddSeal();
+
+
+                    }
+                    // 签批
+                    function InsertHandSign() {
+                        //alert("请使用此用户测试\r\n用户名：李志 \r\n初始密码：111111");
+
+                        var zoomseal = document.getElementById("PageOfficeCtrl1").ZoomSeal;
+                        if (zoomseal != null)
+                            zoomseal.AddHandSign();
+                    }
+
+                    //文档另存为Html，并发布到web服务器
+                    function SaveAsHtml() {
+                        document.getElementById("PageOfficeCtrl1").WebSaveAsMHT();
+                        window.open("/Edit/htmldoc?type=word&id=@Html.Raw(ViewBag.DocID)");
+                    }
+
+                </script>
+                <div style="font-weight:bold; font-size:14px;"> 测试盖章功能，用户名：<span style=" color:Red">李志</span> 密码：<span style=" color:Red">111111</span></div>
+                <div style="width: auto;height: 700px;">
+                    @Html.Raw(ViewBag.POCtrl)
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <hr width="1000" />
+            <div>
+                Copyright (c) 2012 北京卓正志远软件有限公司
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+

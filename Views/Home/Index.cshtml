@@ -1,0 +1,154 @@
+﻿
+@{
+
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css"></link>
+    <!--PageOffice.js一定要引用-->
+    <script type="text/javascript" src="~/PageOffice/pageoffice.js"></script>
+    <title>在线演示示例</title>
+    <script type="text/javascript">
+        function onColor(dd) {
+            dd.style.backgroundColor = "#D7FFEE";
+        }
+        function offColor(dd) {
+            dd.style.backgroundColor = "";
+        }
+        function getFocus() {
+            var str = document.getElementById("FileSubject").value;
+            if (str == "请输入文档主题") {
+                document.getElementById("FileSubject").value = "";
+            }
+        }
+        function lostFocus() {
+            var str = document.getElementById("FileSubject").value;
+            if (str.length <= 0) {
+                document.getElementById("FileSubject").value = "请输入文档主题";
+            }
+        }
+
+
+        function refreshIndex() {
+            window.location.href = "index";
+        }
+
+    </script>
+</head>
+
+<body>
+    <!--header-->
+
+    <div class="zz-headBox br-5 clearfix">
+        <div class="zz-head mc">
+            <!--logo-->
+            <div class="logo fl">
+                <a href="#"> <img src="images/logo.png" alt="" /> </a>
+            </div>
+            <!--logo end-->
+            <ul class="head-rightUl fr">
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com">卓正网站</a></li>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com/about/about/">联系我们</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--header end-->
+    <!--content-->
+    <div class="zz-content mc clearfix pd-28">
+        <div class="demo mc">
+            <h2 class="fs-16">
+                PageOffice 在文档流转中的应用
+            </h2>
+            <h3 class="fs-12">
+                演示说明:
+            </h3>
+            <p>
+                提示：测试印章功能时，可以点击 <a href="loginseal.zz" target="_blank" style=" text-decoration:underline;">电子印章简易管理平台</a> 添加、删除印章。管理员:<span style=" color:Red;">admin</span> 密码:<span style=" color:Red;">111111</span>
+            </p>
+        </div>
+        <div class="demo mc">
+            <h3 class="fs-12">
+                新建文件
+            </h3>
+            <form id="form1" action="index?action=create" method="get">
+                <table class="text" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td style="font-size: 9pt" align="left">
+                            <select name="TemplateName" style='width: 240px;'>
+                                <option value='redhead00.doc' selected="selected">
+                                    -- 空白模板 --
+                                </option>
+                                <option value='redhead01.doc'>
+                                    公司公文模板
+                                </option>
+                                <option value='redhead02.doc'>
+                                    政府红头文件模板
+                                </option>
+                            </select>
+                        </td>
+                        <td align="center">
+                            <input name="FileSubject" id="FileSubject" type="text" onfocus="getFocus()"
+                                   onblur="lostFocus()" class="boder" style="width: 180px;"
+                                   value="请输入文档主题" />
+                        </td>
+                        <td style="width: 221px;">
+                            &nbsp;
+                            <input type="image" style="width: 92px;" id="imgBtn"
+                                   src="images/newword.gif" alt="" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="zz-talbeBox mc">
+            <h2 class="fs-12">
+                文档列表
+            </h2>
+            <table class="zz-talbe">
+                <thead>
+                    <tr>
+                        <th width="7%">
+                            类型
+                        </th>
+                        <th width="22%">
+                            文档名称
+                        </th>
+                        <th width="13%">
+                            创建日期
+                        </th>
+                        <th width="10%">
+                            无痕模式
+                        </th>
+                        <th width="19%">
+                            留痕模式
+                        </th>
+                        <th width="10%">
+                            核稿
+                        </th>
+                        <th width="10%">
+                            只读
+                        </th>
+                        <th width="8%">
+                            Html
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @Html.Raw(ViewBag.strHtml)
+
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <!--content end-->
+    <!--footer-->
+    <div class="login-footer clearfix">
+        Copyright copy 2012 北京卓正志远软件有限公司
+    </div>
+    <!--footer end-->
+</body>
+</html>
+

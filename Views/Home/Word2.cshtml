@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title></title>
+    <link href="/images/csstg.css" rel="stylesheet" type="text/css" />
+    <!--引入PageOffice的js  -->
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
+    <script type="text/javascript">
+        function Lz(id) {
+            location.href = encodeURI("/home/move?id=" + id + "&flg=张三批阅");
+        }
+    </script>
+</head>
+<body>
+    <form id="form2">
+        <div id="header">
+            <div style="float: left; margin-left: 20px;">
+                <img src="/images/logo.jpg" height="30" />
+            </div>
+            <ul>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com">卓正网站</a></li>
+                <li><a target="_blank" href="http://www.zhuozhengsoft.com/about/about/">联系我们</a></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="textcontent" style="width: 1000px; height: 800px;">
+                <div class="flow4">
+                    <a href="#" onClick="POBrowser.closeWindow();">
+                        <img alt="返回" src="/images/return.gif" border="0" />文件列表
+                    </a> <span style="width: 100px;">
+                    </span><strong>文档名称：</strong> <span style="color: Red;">
+                        <span><%=fileName %></span>
+                    </span> <span style="width: 100px;">
+                    </span><strong>当前流程：</strong>
+
+                    @if (ViewBag.Literal_Lc_Text.Equals("在线编辑"))
+                    {
+                        <span style="color: Red;">
+                            <span>@Html.Raw(ViewBag.Literal_Lc_Text)</span>
+                        </span> <span style="width: 100px;">
+                        </span>  <strong>流转：</strong>
+                        <img alt="流转" src="/images/arrow2.gif" border="0" /> 
+                        <a href="javascript:Lz(@Html.Raw(ViewBag.DocID))"><span>@Html.Raw(ViewBag.lz)</span></a>
+                    }
+                    else
+                    {
+                        <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“修改无痕迹模式”打开文件的效果。</span>
+                    }
+
+
+
+                </div>
+                <!--**************   卓正 PageOffice组件 ************************-->
+                
+    <div style="width: auto;height: 700px;">
+        @Html.Raw(ViewBag.POCtrl)
+    </div>
+            </div>
+        </div>
+        <div id="footer">
+            <hr width="1000" />
+            <div>
+                Copyright (c) 2012 北京卓正志远软件有限公司
+            </div>
+        </div>
+    </form>
+</body>
+</html>

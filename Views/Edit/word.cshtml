@@ -3,7 +3,6 @@
     Layout = null;
 }
 
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -43,7 +42,7 @@
                         <img alt="返回" src="/images/return.gif" border="0" />文件列表
                     </a> <span style="width: 100px;">
                     </span><strong>文档名称：</strong> <span style="color: Red;">
-                                                      <span>@Html.Raw(ViewBag.fileName)</span>
+                        <span>@Html.Raw(ViewBag.fileName)</span>
                     </span> <span style="width: 100px;">
                     </span><strong>当前流程：</strong>
 
@@ -69,8 +68,6 @@
                     {
                         <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“修改无痕迹模式”打开文件的效果。</span>
                     }
-
-
 
                 </div>
                 <!--**************   卓正 PageOffice组件 ************************-->
@@ -113,7 +110,6 @@
                     function ShowTitle() {
                         document.getElementById("PageOfficeCtrl1").Alert("该菜单的标题是：" + document.getElementById("PageOfficeCtrl1").Caption);
                     }
-
 
                 </script>
 

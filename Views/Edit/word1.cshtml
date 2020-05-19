@@ -8,9 +8,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <title></title>
     <link href="/images/csstg.css" rel="stylesheet" type="text/css" />
-    <!--引入PageOffice的js  -->
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
     <script type="text/javascript">
         function Lz(id) {
             location.href = encodeURI("/Edit/move?id=" + id + "&flg=正式发文");
@@ -35,7 +32,7 @@
                         <img alt="返回" src="/images/return.gif" border="0" />文件列表
                     </a> <span style="width: 100px;">
                     </span><strong>文档名称：</strong> <span style="color: Red;">
-                                                      <span>@Html.Raw(ViewBag.fileName)</span>
+                        <span>@Html.Raw(ViewBag.fileName)</span>
                     </span> <span style="width: 100px;">
                     </span><strong>当前流程：</strong>
                     @if (ViewBag.Literal_Lc_Text.Equals("文员清稿"))
@@ -49,16 +46,11 @@
                     }
                     else
                     {
-                <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“核稿模式”打开文件的效果。</span>
+                        <span style="color: Red;">已流转到“@Html.Raw(ViewBag.Literal_Lc_Text)”，当前是“核稿模式”打开文件的效果。</span>
                     }
                 </div>
                 <!--**************   卓正 PageOffice组件 ************************-->
                 <script type="text/javascript">
-
-                    // $ = function(id) { return (typeof (id) == 'object') ? id : document.getElementById(id); };
-                    //        function Save() {
-                    //            $("PageOfficeCtrl1").WebSave();
-                    //        }
 
                     function Save() {
                         document.getElementById("PageOfficeCtrl1").WebSave();
@@ -67,9 +59,11 @@
                     function ShowRevisions() {
                         document.getElementById("PageOfficeCtrl1").ShowRevisions = true;
                     }
+
                     function HiddenRevisions() {
                         document.getElementById("PageOfficeCtrl1").ShowRevisions = false;
                     }
+
                     function Show_HidRevisions() {
                         document.getElementById("PageOfficeCtrl1").ShowRevisions = !document.getElementById("PageOfficeCtrl1").ShowRevisions;
                     }
@@ -107,8 +101,6 @@
                         var zoomseal = document.getElementById("PageOfficeCtrl1").ZoomSeal;
                         if (zoomseal != null)
                             zoomseal.AddSeal();
-
-
                     }
                     // 签批
                     function InsertHandSign() {

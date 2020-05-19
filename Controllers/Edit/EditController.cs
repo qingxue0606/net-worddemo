@@ -13,14 +13,12 @@ namespace worddemo.Controllers.Edit
     {
 
         private string connString;
-
         private readonly IWebHostEnvironment _webHostEnvironment;
-
         public EditController(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnvironment = webHostEnvironment;
-            string dataPath = _webHostEnvironment.WebRootPath.Replace("/", "\\");
-            dataPath = dataPath.Substring(0, dataPath.Length - 7) + "appData\\" + "Worddemo.db";
+            string rootPath = _webHostEnvironment.WebRootPath.Replace("/", "\\");
+            string dataPath = rootPath.Substring(0, rootPath.Length - 7) + "appData\\" + "Worddemo.db";
             connString = "Data Source=" + dataPath;
         }
 
@@ -30,23 +28,20 @@ namespace worddemo.Controllers.Edit
             string DocID = Request.Query["ID"];
             string sql = "select * from word where id= " + DocID + ";";
             SqliteConnection conn = new SqliteConnection(connString);
-            String lz = "张三批阅";//流转
+            string lz = "张三批阅";//流转
             conn.Open();
             SqliteCommand cmd = new SqliteCommand(sql, conn);
             cmd.ExecuteNonQuery();
             cmd.CommandText = sql;
-
             SqliteDataReader dr = cmd.ExecuteReader();
             PageOfficeNetCore.PageOfficeCtrl pageofficeCtrl = new PageOfficeNetCore.PageOfficeCtrl(Request);
             pageofficeCtrl.ServerPage = "../PageOffice/POServer";
             string Literal_Subject_Text = "";
             string Literal_Lc_Text = "";
-
             string fileName = "";
             while (dr.Read())
             {
                 Literal_Subject_Text = dr["Subject"].ToString();//文件名称
-
                 if ("在线编辑" == dr["Status"].ToString())
                 {
                     Literal_Lc_Text = dr["Status"].ToString();//当前文件的流程
@@ -60,7 +55,6 @@ namespace worddemo.Controllers.Edit
                 string fileSubject = dr["Subject"].ToString();
                 pageofficeCtrl.Caption = fileSubject;
             }
-
             //设置保存页面
             pageofficeCtrl.SaveFilePage = "/Edit/SaveDoc";
             //打开Word文档
@@ -75,8 +69,6 @@ namespace worddemo.Controllers.Edit
 
         }
 
-
-
         public IActionResult word3()
         {
             string DocID = Request.Query["ID"];
@@ -87,13 +79,11 @@ namespace worddemo.Controllers.Edit
             SqliteCommand cmd = new SqliteCommand(sql, conn);
             cmd.ExecuteNonQuery();
             cmd.CommandText = sql;
-
             SqliteDataReader dr = cmd.ExecuteReader();
             PageOfficeNetCore.PageOfficeCtrl pageofficeCtrl = new PageOfficeNetCore.PageOfficeCtrl(Request);
             pageofficeCtrl.ServerPage = "../PageOffice/POServer";
             string Literal_Subject_Text = "";
             string Literal_Lc_Text = "";
-
             string fileName = "";
             while (dr.Read())
             {
@@ -101,8 +91,7 @@ namespace worddemo.Controllers.Edit
 
                 if ("正式发文" == dr["Status"].ToString())
                 {
-                    Literal_Lc_Text = dr["Status"].ToString();//当前文件的流程
-                    
+                    Literal_Lc_Text = dr["Status"].ToString();//当前文件的流程  
                 }
                 else
                 {
@@ -112,7 +101,6 @@ namespace worddemo.Controllers.Edit
                 string fileSubject = dr["Subject"].ToString();
                 pageofficeCtrl.Caption = fileSubject;
             }
-
             //设置保存页面
             pageofficeCtrl.SaveFilePage = "/Edit/SaveDoc";
 
@@ -120,7 +108,6 @@ namespace worddemo.Controllers.Edit
             pageofficeCtrl.AddCustomToolButton("页面设置", "ShowDialog(1)", 0);
             pageofficeCtrl.AddCustomToolButton("打印", "ShowDialog(2)", 6);
             pageofficeCtrl.AddCustomToolButton("全屏/还原", "IsFullScreen", 4);
-
             //打开Word文档
             pageofficeCtrl.WebOpen("/doc/" + fileName, PageOfficeNetCore.OpenModeType.docReadOnly, "tom");
             ViewBag.POCtrl = pageofficeCtrl.GetHtmlCode("PageOfficeCtrl1");
@@ -133,16 +120,13 @@ namespace worddemo.Controllers.Edit
 
         }
 
-
-
-
         public IActionResult word()
         {
             string DocID = Request.Query["ID"];
             string userName = Request.Query["user"];
             string sql = "select * from word where id= " + DocID + ";";
             SqliteConnection conn = new SqliteConnection(connString);
-            String lz = "李四批阅";//流转
+            string lz = "李四批阅";//流转
 
             conn.Open();
             SqliteCommand cmd = new SqliteCommand(sql, conn);
@@ -154,7 +138,6 @@ namespace worddemo.Controllers.Edit
             pageofficeCtrl.ServerPage = "../PageOffice/POServer";
             string Literal_Subject_Text = "";
             string Literal_Lc_Text = "";
-
             string fileName = "";
             while (dr.Read())
             {
@@ -214,8 +197,7 @@ namespace worddemo.Controllers.Edit
             string userName = Request.Query["user"];
             string sql = "select * from word where id= " + DocID + ";";
             SqliteConnection conn = new SqliteConnection(connString);
-            String lz = "李四批阅";//流转
-
+            string lz = "李四批阅";//流转
             conn.Open();
             SqliteCommand cmd = new SqliteCommand(sql, conn);
             cmd.ExecuteNonQuery();

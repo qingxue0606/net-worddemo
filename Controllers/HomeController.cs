@@ -27,11 +27,10 @@ namespace worddemo.Controllers
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
-            string dataPath = _webHostEnvironment.WebRootPath.Replace("/", "\\");
-            dataPath = dataPath.Substring(0, dataPath.Length - 7) + "appData\\" + "Worddemo.db";
+            string rootPath = _webHostEnvironment.WebRootPath.Replace("/", "\\");
+            string dataPath = rootPath.Substring(0, rootPath.Length - 7) + "appData\\" + "Worddemo.db";
             connString = "Data Source=" + dataPath;
         }
-
 
 
         public IActionResult Index()
@@ -86,39 +85,39 @@ namespace worddemo.Controllers
                 switch (dr["Status"].ToString())
                 {
                     case "在线编辑":
-                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindow('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Blue;'>在线编辑</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=张三" + "', 'width=1200px;height=800px;');\">张三批阅</a> " +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=李四" + "', 'width=1200px;height=800px;');\" >李四批阅</a> " +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">文员清稿</a> " +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");
+                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindowModeless('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Blue;'>在线编辑</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=张三" + "', 'width=1200px;height=800px;');\">张三批阅</a> " +
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=李四" + "', 'width=1200px;height=800px;');\" >李四批阅</a> " +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">文员清稿</a> " +
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");
                         break;
                     case "张三批阅":
-                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindow('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
+                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindowModeless('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
                " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=zhangsan'" + ", 'width=1200px;height=800px;','');\"><span style=' color:Blue;'>张三批阅</span></a>" +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" >李四批阅</a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">文员清稿</a>" +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");                                    
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" >李四批阅</a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">文员清稿</a>" +
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");                                    
                         break;
                     case "李四批阅":
-                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindow('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=张三'" + ", 'width=1200px;height=800px;');\"><span style=' color:Green;'>张三批阅</span></a>" +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" ><span style=' color:Blue;'>李四批阅</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">文员清稿</a>" +
-               " →<a href = \"javascript:POBrowser.openWindow('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");
+                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindowModeless('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=张三'" + ", 'width=1200px;height=800px;');\"><span style=' color:Green;'>张三批阅</span></a>" +
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" ><span style=' color:Blue;'>李四批阅</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">文员清稿</a>" +
+               " →<a href = \"javascript:POBrowser.openWindowModeless('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");
                         break;
                     case "文员清稿":
-                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindow('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
-               " →<a href =  \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=张三'" + ", 'width=1200px;height=800px;');\"><span style=' color:Green;'>张三批阅</span></a>" +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" ><span style=' color:Green;'>李四批阅</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\"><span style=' color:Blue;'>文员清稿</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");
+                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindowModeless('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
+               " →<a href =  \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=张三'" + ", 'width=1200px;height=800px;');\"><span style=' color:Green;'>张三批阅</span></a>" +
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" ><span style=' color:Green;'>李四批阅</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\"><span style=' color:Blue;'>文员清稿</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\">正式发文</a></td>\n");
                         break;
                     case "正式发文":
-                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindow('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=张三'" + ", 'width=1200px;height=800px;');\"><span style=' color:Green;'>张三批阅</span></a>" +
-               " →<a href = \"javascript:POBrowser.openWindow('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" ><span style=' color:Green;'>李四批阅</span></a>" +
-               " → <a href =  \"javascript:POBrowser.openWindow('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\"><span style=' color:Green;'>文员清稿</span></a>" +
-               " → <a href = \"javascript:POBrowser.openWindow('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\"><span style=' color:Blue;'>正式发文</a></span></td>\n");
+                        strHtml.Append(" <td colspan=4><a href = \"javascript:POBrowser.openWindowModeless('Edit/word2?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\" ><span style=' color:Green;'>在线编辑</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=张三'" + ", 'width=1200px;height=800px;');\"><span style=' color:Green;'>张三批阅</span></a>" +
+               " →<a href = \"javascript:POBrowser.openWindowModeless('Edit/word?ID=" + dr["ID"] + "&user=李四'" + ", 'width=1200px;height=800px;');\" ><span style=' color:Green;'>李四批阅</span></a>" +
+               " → <a href =  \"javascript:POBrowser.openWindowModeless('Edit/word1?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\"><span style=' color:Green;'>文员清稿</span></a>" +
+               " → <a href = \"javascript:POBrowser.openWindowModeless('Edit/word3?ID=" + dr["ID"] + "', 'width=1200px;height=800px;');\"><span style=' color:Blue;'>正式发文</a></span></td>\n");
                         break;
                 }
 
